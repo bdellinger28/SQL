@@ -1,0 +1,42 @@
+#In this SQL, I'm querying a database with multiple tables in it to quantify statistics about customer and order data.
+
+
+SELECT count(orderID) FROM BIT_DB.JanSales
+WHERE length(orderID) = 6
+AND orderID <> 'Order ID';
+
+SELECT count(orderID) FROM BIT_DB.JanSales
+WHERE length(orderID) = 6
+AND product = "iPhone"
+AND orderID <> 'Order ID';
+
+SELECT DISTINCT customers.acctnum FROM BIT_DB.customers
+INNER JOIN BIT_DB.FebSales ON BIT_DB.FebSales.orderID=BIT_DB.customers.order_id
+WHERE length(orderID) = 6
+AND orderID <> 'Order ID';
+
+SELECT distinct Product, price
+FROM BIT_DB.JanSales
+WHERE price in (SELECT min(price) FROM BIT_DB.JanSales);
+
+SELECT JanSales.product, ROUND(SUM(JanSales.quantity)*JanSales.price, 2) AS total_rev
+FROM BIT_DB.JanSales
+WHERE length(orderID) = 6
+AND orderID <> 'Order ID'
+GROUP BY product
+ORDER BY total_rev DESC;
+
+SELECT product, SUM(quantity) AS total_sold, ROUND(SUM(quantity)*price, 2) AS total_rev
+FROM BIT_DB.FebSales
+WHERE location = "548 Lincoln St, Seattle, WA 98101"
+AND length(orderID) = 6
+AND orderID <> 'Order ID'
+GROUP BY product
+ORDER BY total_sold ASC;
+
+SELECT COUNT(DISTINCT customers.acctnum), AVG(FebSales.quantity)*FebSales.price AS avg_spent
+FROM BIT_DB.FebSales
+LEFT JOIN BIT_DB.customers on BIT_DB.FebSales.orderID=BIT_DB.customers.order_id
+WHERE length(orderID) = 6
+AND orderID <> 'Order ID'
+AND quantity>2;
