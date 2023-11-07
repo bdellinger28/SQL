@@ -1,6 +1,5 @@
-#This analysis utilized the following Fortune 500 dataset:
+#This analysis utilized the following Fortune 500 dataset. First, I created the table in SQLite Studio.
 
-#This analysis utilized the following Fortune 500 dataset:
 CREATE TABLE fortune_companies (
     company_id INTEGER PRIMARY KEY,
     company_name TEXT,
@@ -13,6 +12,7 @@ CREATE TABLE fortune_companies (
     avg_employee_tenure REAL
 );
 
+#Then, I inserted the following data.
 INSERT INTO fortune_companies (company_name, industry, revenue, employees, healthcare_benefits, paid_time_off_days, maternity_leave_weeks, avg_employee_tenure)
 VALUES
     ('Apple Inc.', 'Technology', 365.7, 147000, 1, 20, 12, 4.5),
@@ -59,25 +59,26 @@ VALUES
     ('Company JJ', 'Manufacturing', 370.0, 3100, 1, 20, 12, 7.6),
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
 
-#View full table from dataset.
+#Queries:
+#1. View full table from dataset.
 SELECT *
 FROM fortune_companies;
 
-#View Fortune 500 companies that have health benefits *and* maternity leave of at least 12 weeks.
+#2. View Fortune 500 companies that have health benefits *and* maternity leave of at least 12 weeks.
 SELECT * 
 FROM fortune_companies
 WHERE healthcare_benefits=1
 AND maternity_leave_weeks>=12
 GROUP BY industry;
 
-#Find each industries' average revenue, displaying only those with over $200M.
+#3. Find each industries' average revenue, displaying only those with over $200M.
 SELECT industry, ROUND(AVG(revenue),1) AS avg_industry_revenue
 FROM fortune_companies
 GROUP BY industry
 HAVING avg_industry_revenue > 200
 ORDER BY avg_industry_revenue DESC;
 
-#Rank companies' paid time off days per year as above average, average, or below average, and tally each.
+#4. Rank companies' paid time off days per year as above average, average, or below average, and tally each.
 SELECT COUNT(*),
 CASE WHEN paid_time_off_days >=23 THEN "Above Average"
 WHEN paid_time_off_days >16 AND paid_time_off_days <23 THEN "Average"
@@ -86,11 +87,11 @@ END AS pto_rank
 FROM fortune_companies
 GROUP BY pto_rank;
 
-#View the 3 companies with PTO of at least 23 days, or above average.
+#5. View the 3 companies with PTO of at least 23 days, or above average.
 SELECT company_name, paid_time_off_days
 FROM fortune_companies
 WHERE paid_time_off_days >=23;
 
-#Find the fortune 500 company offering the most PTO.
+#6. Find the fortune 500 company offering the most PTO.
 SELECT company_name, MAX(paid_time_off_days)
 FROM fortune_companies;
