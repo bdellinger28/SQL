@@ -3,3 +3,4 @@ Welcome to my SQL portfolio! This code repository contains examples of SQL I've 
 
 -Brooklyn Dellinger  
 To view my resume, visit [LinkedIn](www.linkedin.com/me/brooklynwdellinger).
+To view Vizzes I have created, visit [my Tableau Public profile](https://public.tableau.com/app/profile/brooklyn.dellinger/vizzes).
