@@ -58,38 +58,40 @@ VALUES
     ('s19', 'Adam Salky', 'Freida Pinto| Logan Marshall-Green| Robert John Burke| Megan Elisabeth Kelly| Sarah Minnich| Hayes Hargrove| Mark Sivertsen| Brandon Fierro| Antonio Valles| Clint Obenchain'),
     ('s20', NULL, 'Blanca SuÃ¡rez| IvÃ¡n Marcos| Ã“scar Casas| AdriÃ¡n Lastra| Francesc Garrido| Stefan Weinert| Julia MÃ¶ller| Alicia Chojnowski')
     ;
-#Viewing Netflix Titles data table.
+
+#Queries:
+#1. Viewing Netflix Titles data table.
 SELECT * FROM "netflix_titles_info";
 
-#Viewing Netflix People data table.
+#2. Viewing Netflix People data table.
 SELECT * FROM "netflix_people";
 
-#Find how many movies are in the dataset.
+#3. Find how many movies are in the dataset.
 SELECT COUNT(*)
 FROM "netflix_titles_info"
 WHERE type='Movie';
 
-#Find the most recently added data.
+#4. Find the most recently added data.
 SELECT max(date(date_added))
 FROM "netflix_titles_info";
 
-#Alphabetize all titles in the dataset.
+#5. Alphabetize all titles in the dataset.
 SELECT title
 from "netflix_titles_info"
 ORDER BY title ASC;
 
-#View the title and release date from the Titles table, along with the corresponding directors from the People table.
+#6. View the title and release date from the Titles table, along with the corresponding directors from the People table.
 SELECT "netflix_titles_info".title, "netflix_titles_info".release_year, "netflix_people".director
 FROM "netflix_titles_info"
 LEFT OUTER JOIN "netflix_people" ON "netflix_titles_info".show_id="netflix_people".show_id;
 
-#Find the director of The Starling
+#7. Find the director of The Starling
 SELECT "netflix_titles_info".title, "netflix_people".director
 FROM "netflix_titles_info"
 LEFT OUTER JOIN "netflix_people" ON "netflix_titles_info".show_id="netflix_people".show_id
 WHERE "netflix_titles_info".title='The Starling';
 
-#Find the oldest movie in the dataset.
+#8. Find the oldest movie in the dataset.
 SELECT title, release_year
 FROM "netflix_titles_info"
 WHERE type='Movie'
