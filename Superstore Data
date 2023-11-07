@@ -1,3 +1,5 @@
+#This dataset relfects superstore products with charateristics.
+#First, I created the table, superstore.
 CREATE TABLE superstore (
     item_id INTEGER PRIMARY KEY,
     item_name TEXT,
@@ -7,6 +9,7 @@ CREATE TABLE superstore (
     average_rating DECIMAL(3, 2)
 );
 
+#Then, I inserted the data.
 INSERT INTO superstore (item_id, item_name, category, price, stock_quantity, average_rating)
 VALUES
     (1, 'Stainless Steel Cookware Set', 'Kitchen Supplies', 89.99, 50, 4.6),
@@ -25,26 +28,27 @@ VALUES
     (14, 'Cutlery Set', 'Kitchen Supplies', 34.50, 40, 4.4),
     (15, 'Cozy Throw Blanket', 'Furnishings', 24.99, 100, 4.2);
 
-#Run all data in table sorting by price.
+Queries: 
+#1. Run all data in table sorting by price.
 SELECT *
 FROM superstore
 ORDER BY price;
 
-#Finding the most expensive item available at the superstore.
+#2. Finding the most expensive item available at the superstore.
 SELECT item_name, MAX (price)
 FROM superstore;
 
-#Finding the average rating of all items in the store.
+#3. Finding the average rating of all items in the store.
 SELECT AVG (average_rating) 
 FROM superstore;
 
-#Discovering items over $50 in the superstore category, Kitchen Supplies.
+#4. Discovering items over $50 in the superstore category, Kitchen Supplies.
 SELECT item_name, price, stock_quantity
 FROM superstore
 WHERE price > 50 and category = "Kitchen Supplies"
 ORDER BY item_name ASC;
 
-#Determining which categories have the highest overall rating.
+#5. Determining which categories have the highest overall rating.
 SELECT category, AVG (average_rating)
 FROM superstore
 GROUP BY category
